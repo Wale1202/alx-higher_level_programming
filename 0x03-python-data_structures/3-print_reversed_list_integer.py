@@ -6,15 +6,3 @@ def print_reversed_list_integer(my_list=[]):
     my_list.reverse()
     for i in my_list:
         print("{:d}".format(i))
-
-'''
-ALTERNATE SOLUTION (NOT OPTIMIZED)
-
-def print_reversed_list_integer(my_list=[]):
-    for i in range(len(my_list)):
-        if i == (len(my_list)):
-            print()
-        while i < (len(my_list)):
-            print('{:d}'.format(my_list[i-1]))
-            i -= 1
-'''
