@@ -1,71 +1,80 @@
-#!/usr/bin/python3
-"""This module contain a function that multiplies two matrix"""
+============================
+100-matrix_mul Module
+============================
+
+Defines matrix multiplication function ``matrix_mul(m_a, m_b)``.
+
+Usage
+=====
+``matrix_mul(...)`` Returns the product of two matrices ``m_a`` by ``m_b``
 
 
-def matrix_mul(m_a, m_b):
-    """matrix_mul function that multiplies two matrix
-    Args:
-        m_a (list of lists): first matrix
-        m_b (list of lists): second matrix
-    """
-    if type(m_a) != list:
-        raise TypeError("m_a must be a list")
-    if type(m_b) != list:
-        raise TypeError("m_b must be a list")
+Verify import
+>>> matrix_mul = __import__('100-matrix_mul').matrix_mul
 
-    # variables to verify if both m_a and m_b can be multiplied
-    num_colum1 = 0
-    num_row2 = 0
+SUCCESSFUL CASES:
 
-    # Check requirements for matrix m_a
-    if m_a == []:
-        raise ValueError("m_a can't be empty")
-    for row1 in m_a:
-        if type(row1) != list:
-            raise TypeError("m_a must be a list of lists")
-        len1 = len(m_a[0])
-        if row1 == []:
-            raise ValueError("m_a can't be empty")
-        if len1 != len(row1):
-            raise TypeError("each row of m_a must be of the same size")
-        num_colum1 = len(row1)
-        for column1 in row1:
-            if type(column1) != int and type(column1) != float:
-                raise TypeError("m_a should contain only integers or floats")
+Test signed and unsigned ints and floats in same size lists in list matrix:
+     >>> m_a = [[1, 2], [3, 4]]
+     >>> m_b = [[2, 0], [1, 2]]
+     >>> print(matrix_mul(m_a, m_b))
+     [[4, 4], [10, 8]]
 
-    # Check requirements for matrix m_b
-    if m_b == []:
-        raise ValueError("m_b can't be empty")
-    for row2 in m_b:
-        if type(row2) != list:
-            raise TypeError("m_b must be a list of lists")
-        len2 = len(m_b[0])
-        if row2 == []:
-            raise ValueError("m_b can't be empty")
-        if len2 != len(row2):
-            raise TypeError("each row of m_b must be of the same size")
-        num_row2 += 1
-        for column2 in row2:
-            if type(column2) != int and type(column2) != float:
-                raise TypeError("m_b should contain only integers or floats")
+     >>> m_a = [[-2.0, -3.0]]
+     >>> m_b = [[-2.0], [-4.0]]
+     >>> print(matrix_mul(m_a, m_b))
+     [[16.0]]
 
-    # Check if the multiplication is posible
-    if num_colum1 != num_row2:
-        raise ValueError("m_a and m_b can't be multiplied")
 
-    mul_matrix = []
+FAILURE CASES:
 
-    for row_1 in m_a:
-        l = 0
-        l_row = []
-        while l < len(m_b[0]):
-            result = 0
-            k = 0
-            for column_1 in row_1:
-                result += column_1 * m_b[k][l]
-                k += 1
-            l_row.append(result)
-            l += 1
-        mul_matrix.append(l_row)
+Test empty matrix:
+     >>> m_a = []
+     >>> m_b = [[2, 0], [1, 2]]
+     >>> print(matrix_mul(m_a, m_b))
+     Traceback (most recent call last):
+     ...
+     ValueError: m_a can't be empty
 
-    return mul_matrix
+     >>> m_a = [[2, 0], [1, 2]]
+     >>> m_b = []
+     >>> print(matrix_mul(m_a, m_b))
+     Traceback (most recent call last):
+     ...
+     ValueError: m_b can't be empty
+
+     >>> m_a = [[2, 0], [1, 2]]
+     >>> m_b = [[]]
+     >>> print(matrix_mul(m_a, m_b))
+     Traceback (most recent call last):
+     ...
+     ValueError: m_b can't be empty
+
+Test different sized lists in matrix:
+     >>> m_a = [[1, 2], [1, 2]]
+     >>> m_b = [[1, 2], [1, 2, 3, 4]]
+     >>> print(matrix_mul(m_a, m_b))
+     Traceback (most recent call last):
+     ...
+     TypeError: each row of m_b must should be of the same size
+
+     >>> m_a = [[1, 2], [1, 2, 3, 4]]
+     >>> m_b = [[1, 2], [1, 2]]
+     >>> print(matrix_mul(m_a, m_b))
+     Traceback (most recent call last):
+     ...
+     TypeError: each row of m_a must should be of the same size
+
+Test matrix with other data types:
+     >>> m_a = [["hello"], ["there"]]
+     >>> print(matrix_mul(m_a, m_a))
+     Traceback (most recent call last):
+     ...
+     TypeError: m_a should contain only integers or floats
+
+     >>> m_a = (1, 2)
+     >>> m_b = [[1, 2], [1, 2]]
+     >>> print(matrix_mul(m_a, m_b))
+     Traceback (most recent call last):
+     ...
+     TypeError: m_a must be a list
